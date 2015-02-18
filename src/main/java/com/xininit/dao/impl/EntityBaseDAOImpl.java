@@ -1,7 +1,6 @@
 package com.xininit.dao.impl;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
@@ -132,12 +131,12 @@ public abstract class EntityBaseDAOImpl<T extends Serializable,PK extends Serial
 
 	@Override
 	public T get(PK id) {
-		return (T) this.getCurrentSession().get(this.getEntityClass(), id);
+		return this.getEntityClass().cast(this.getCurrentSession().get(this.getEntityClass(), id));
 	}
 
 	@Override
 	public T load(PK id) {
-		return (T) this.getCurrentSession().load(this.getEntityClass(), id);
+		return this.getEntityClass().cast(this.getCurrentSession().load(this.getEntityClass(), id));
 	}
 
 	@Override
@@ -161,7 +160,7 @@ public abstract class EntityBaseDAOImpl<T extends Serializable,PK extends Serial
 		Query q = this.getCurrentSession().createQuery(hql);  
 		commonDAO.initQueryParames(q, param);
 		commonDAO.initQueryPage(q, page, rows);
-		return q.list();
+		return commonDAO.queryList(q, getEntityClass());
 	}
 	
 }

@@ -13,6 +13,15 @@ import org.hibernate.Session;
  */
 public interface CommonDAOI {
 	
+	//工具方法
+    /**
+     * 返回安全类型的List
+     * @param query
+     * @param entityClass [用于判断类型是否安全，同时可以将Class中的T与return List中T中的绑在一起，使得返回类型必须是 T(无警告) 或 object(毕竟是祖宗)]
+     * @return
+    */
+   public <T> List<T> queryList(Query q,Class<T> entityClass);
+   	
 	/**
 	 * 设置分页参数
 	 * @param q

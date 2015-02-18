@@ -17,6 +17,14 @@ import com.xininit.dao.CommonDAOI;
  */
 @Repository("commonDAO")
 public class CommonDAOImpl implements CommonDAOI {
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> List<T> queryList(Query q, Class<T> entityClass) {
+		//TODO 转换成安全过程需要消耗资源，由于可能存在list大量数据，暂时还是采用注解取消警告的方式
+		//return MyArrayListUtil.rtnSafeTypeList(q.list(), entityClass);
+		return q.list();
+	}
 
 	@Override
 	public Query initQueryPage(Query q, Integer page, Integer rows) {
@@ -101,7 +109,7 @@ public class CommonDAOImpl implements CommonDAOI {
 		Query q = currentSession.createQuery(hql);
 		this.initQueryParames(q, param); 
 		this.initQueryPage(q, page, rows);
-		return q.list();
+		return this.queryList(q, Object[].class);
 	}
 	
 	

@@ -2,12 +2,6 @@
  */
 package com.xininit.dao;
 
-import java.io.Serializable;
-
-
-
-import java.util.List;
-
 import com.xininit.pojo.Admin;
 
 /**
