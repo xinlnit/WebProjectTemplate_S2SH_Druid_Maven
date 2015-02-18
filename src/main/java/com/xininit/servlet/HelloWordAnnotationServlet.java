@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author xin
  * @version 1.0(xin) 2015年2月18日 上午9:22:30
  */
-@WebServlet(name="helloWordServlet",urlPatterns="/helloWorldServlet.do")
+@WebServlet(name="helloWordServlet",urlPatterns="/servlet/helloWorld.do")
 public class HelloWordAnnotationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
