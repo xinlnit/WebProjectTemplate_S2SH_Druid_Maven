@@ -16,5 +16,30 @@
 	<!-- 注解配置 -->
 	<context:component-scan base-package="com.xininit" />
 	
-
+	<!-- 整合hibernate -->
+	
+	<!-- 设置dataSource,使用Druid连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/my_tmp_db"/>
+		<property name="username" value="root"/>
+		<property name="password" value="root"/>
+	</bean>
+	<!-- 加入sessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan"  value="com.xininit.pojo"></property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- 自动创建不存在的表和字段 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- 输出SQL -->
+				<prop key="hibernate.show_sql">false</prop>
+				<!-- 格式化输出SQL -->
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- 设置方言 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+			</props>
+		</property>
+	</bean>
 </beans>

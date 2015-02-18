@@ -17,6 +17,7 @@
 		<hibernate.version>4.3.8.Final</hibernate.version>
 		<struts2.version>2.3.20</struts2.version>
 		<mysql.connector.version>5.1.34</mysql.connector.version>
+		<druid.version>1.0.12</druid.version>
 	</properties>
 	<!-- 依赖配置 -->
 	<dependencies>
@@ -132,6 +133,14 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
+		</dependency>
+		
+		
+		<!-- druid -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
 		</dependency>
 	</dependencies>
 
