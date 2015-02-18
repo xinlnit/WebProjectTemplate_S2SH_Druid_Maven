@@ -39,6 +39,11 @@
 				<prop key="hibernate.format_sql">true</prop>
 				<!-- 设置方言 -->
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!--
+				    thread:使用connection，用于单数据库连接事物管理
+					jta:(java transaction api)运行时需要application server提供支持，它主要用于多数据库，分布式事物管理，用于界定事物边界。 
+				-->
+				<prop key="current_session_context_class">thread</prop>
 			</props>
 		</property>
 	</bean>
