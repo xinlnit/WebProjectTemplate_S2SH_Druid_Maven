@@ -5,7 +5,7 @@
 
 <struts>
  <package name="struts2" namespace="/" extends="struts-default">
-	<action name="login" class="com.xininit.controller.LoginController" method="login">
+	<action name="login" class="loginController" method="login">
 		<result name="login">/login.jsp</result>
 		<result name="admin">/adminIndex.jsp</result>
 	</action>
