@@ -9,7 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>My JSP 'login.jsp' starting page</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -18,9 +19,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
   </head>
   
   <body>
-    This is my JSP page. <br>
+   <form method="post" id="myForm" action="login.action">
+   		
+	    <center>
+	    <table><tr><td bgcolor=#CCCCCC>登录(login.action)</td></tr></table>
+		<table>
+			<tr>
+				<td>账号/手机：</td>
+				<td><input type="text" value="admin" name="account">(account)</td>
+			</tr>
+			<tr>
+				<td align="right">密码：</td>
+				<td><input type="text" value="admin" name="password">(password)</td>
+			</tr>
+		</table>
+		<input type="submit" value="提交">
+	    </center>
+    </form>
   </body>
 </html>

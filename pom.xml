@@ -113,11 +113,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!-- 
+		因为还没整合spring，如果加入struts2-spring-plugin将会报空指针异常，因此先注释
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-spring-plugin</artifactId>
 			<version>${struts2.version}</version>
 		</dependency>
+		 -->
 		<dependency>
 			<groupId>org.apache.struts</groupId>
 			<artifactId>struts2-convention-plugin</artifactId>
@@ -136,7 +139,7 @@
 	<build>
 		<finalName>Template_S2SH_Druid_Maven</finalName>
 		<plugins>
-			<!-- 配置默认编译jdk -->
+			<!-- compiler插件，设定jdk版本 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

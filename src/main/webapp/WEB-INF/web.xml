@@ -7,6 +7,19 @@
 
 	<!-- web应用描述:给出于此相关的说明性文本 -->
 	<display-name>Archetype Created Web Application</display-name>
+	
+	<!-- 配置struts2 -->
+	<filter>
+		<filter-name>struts</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- 默认打开页面 -->
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
