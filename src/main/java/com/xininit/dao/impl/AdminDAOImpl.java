@@ -32,8 +32,7 @@ public class AdminDAOImpl implements AdminDAOI{
 		//openSession和CurrentSession的区别
 		//采用getCurrentSession()创建的session会绑定到当前线程中，而采用openSession()创建的session则不会
 		//采用getCurrentSession()创建的session在commit或rollback时会自动关闭，而采用openSession()创建的session必须手动关闭 
-		//在测试时候，如果想直接通过bean获取dao并调用里面的方法，使用openSession()
-		return sessionFactory.openSession();
+		return sessionFactory.getCurrentSession();
 	}
 	
 	public SessionFactory getSessionFactory() {
