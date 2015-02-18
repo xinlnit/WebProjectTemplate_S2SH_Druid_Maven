@@ -18,12 +18,12 @@ import com.xininit.service.AdminServiceI;
 @Service("AdminService")
 public class AdminServiceImpl implements AdminServiceI {
 	@Autowired
-	private AdminDAOI adminDAOI;
+	private AdminDAOI adminDAO;
 
 	@Override
 	public String addNewAdmin(String name, String account, String password) {
 		Admin admin = new Admin(null,name,account,password);
-		String id = (String) this.adminDAOI.save(admin);
+		String id = (String) this.adminDAO.save(admin);
 		if(id!=null){
 			return "添加成功";
 		}else{
@@ -33,7 +33,8 @@ public class AdminServiceImpl implements AdminServiceI {
 
 	@Override
 	public List<Admin> showAllAdmin() {
-		return this.adminDAOI.getAll();
+		String hql = " from Admin ";
+		return this.adminDAO.findByHQL(hql);
 	}
 	
 	
