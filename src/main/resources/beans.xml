@@ -32,9 +32,9 @@
 		<property name="hibernateProperties">
 			<props>
 				<!-- 自动创建不存在的表和字段 -->
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 				<!-- 输出SQL -->
-				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.show_sql">true</prop>
 				<!-- 格式化输出SQL -->
 				<prop key="hibernate.format_sql">true</prop>
 				<!-- 设置方言 -->
