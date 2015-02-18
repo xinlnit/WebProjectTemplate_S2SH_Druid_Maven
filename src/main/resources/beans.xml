@@ -15,15 +15,24 @@
 
 	<!-- 注解配置 -->
 	<context:component-scan base-package="com.xininit" />
+	<!-- 引入properties配置文件，默认在wenRoot目录下，加上classpath:表示在src目录下 -->
+	<bean id="propertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list><!-- 小写l... -->
+				<value>classpath:config.properties</value>
+				<value>classpath:hibernate.properties</value>
+			</list>
+		</property>
+	</bean>
 	
-	<!-- 整合hibernate -->
 	
 	<!-- 设置dataSource,使用Druid连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3306/my_tmp_db"/>
-		<property name="username" value="root"/>
-		<property name="password" value="root"/>
+		<property name="url" value="${url}"/>
+		<property name="username" value="${username}"/>
+		<property name="password" value="${password}"/>
 	</bean>
 	<!-- 加入sessionFactory -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -31,19 +40,11 @@
 		<property name="packagesToScan"  value="com.xininit.pojo"></property>
 		<property name="hibernateProperties">
 			<props>
-				<!-- 自动创建不存在的表和字段 -->
-				<prop key="hibernate.hbm2ddl.auto">create</prop>
-				<!-- 输出SQL -->
-				<prop key="hibernate.show_sql">true</prop>
-				<!-- 格式化输出SQL -->
-				<prop key="hibernate.format_sql">true</prop>
-				<!-- 设置方言 -->
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<!--
-				    thread:使用connection，用于单数据库连接事物管理
-					jta:(java transaction api)运行时需要application server提供支持，它主要用于多数据库，分布式事物管理，用于界定事物边界。 
-				-->
-				<prop key="current_session_context_class">thread</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.dialect">${dialect}</prop>
+				<prop key="current_session_context_class">${current_session_context_class}</prop>
 			</props>
 		</property>
 	</bean>
