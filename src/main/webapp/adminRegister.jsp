@@ -17,7 +17,7 @@
 			</tr>
 			<tr>
 				<td align="right">名字：</td>
-				<td><input type="text" value="小小管理员" name="admin.name">(name)</td>
+				<td><input type="text" value="oneAdmin" name="admin.name">(name)</td>
 			</tr>
 			<tr>
 				<td align="right">密码：</td>

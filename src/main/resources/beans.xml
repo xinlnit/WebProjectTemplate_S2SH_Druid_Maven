@@ -15,6 +15,7 @@
 
 	<!-- 注解配置 -->
 	<context:component-scan base-package="com.xininit" />
+
 	<!-- 引入properties配置文件，默认在wenRoot目录下，加上classpath:表示在src目录下 -->
 	<bean id="propertyPlaceholderConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -25,19 +26,20 @@
 			</list>
 		</property>
 	</bean>
-	
-	
+
 	<!-- 设置dataSource,使用Druid连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-		<property name="url" value="${url}"/>
-		<property name="username" value="${username}"/>
-		<property name="password" value="${password}"/>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
 	</bean>
+
 	<!-- 加入sessionFactory -->
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="packagesToScan"  value="com.xininit.pojo"></property>
+		<property name="packagesToScan" value="com.xininit.pojo"></property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
@@ -48,4 +50,46 @@
 			</props>
 		</property>
 	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- 
+		注解方式配置事物
+	 	<tx:annotation-driven transaction-manager="transactionManager" /> 
+	-->
+
+	<!-- 拦截器方式配置事务 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="count*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="modify*" propagation="REQUIRED" />
+			<tx:method name="edit*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="find*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="load*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="search*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="list*" propagation="REQUIRED" read-only="true" />
+			<tx:method name="show*" propagation="REQUIRED" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 添加事务 -->
+
+	<aop:config>
+		<!-- 切入点 -->
+		<aop:pointcut id="transactionPointcut"
+			expression="execution(* com.xininit.service.impl.*Impl.*(..)) || execution(* com.xininit.dao.impl.*Impl.*(..))" />
+		<!-- 通知器 -->
+		<aop:advisor pointcut-ref="transactionPointcut"
+			advice-ref="transactionAdvice" />
+	</aop:config>
 </beans>

@@ -30,7 +30,7 @@ public class AdminServiceTest {
 		AdminServiceI adminService =  (AdminServiceI) atcx.getBean("AdminService");  
 		System.out.println(adminService.addNewAdmin("adminName", "adminAccount", "adminPassword"));
 		//下面的showAllAdmin执行时没有数据，原因是事务还没有提交，调用flush方法强制提交事务
-		sessionFactory.getCurrentSession().flush();
+		//sessionFactory.getCurrentSession().flush();配置后可以自动提交事务，因此不需要再调用flush方法
 		List<Admin> adminList = adminService.showAllAdmin();
 		for(Admin admin:adminList){
 			System.out.println("输出"+admin.getName());
