@@ -9,6 +9,11 @@
 		<result name="login">/login.jsp</result>
 		<result name="admin">/adminIndex.jsp</result>
 	</action>
+	
+	<action name="*Register" class="registerController" method="{1}Register">
+		<result name="success">/{1}Index.jsp</result>
+		<result name="register">/{1}Register.jsp</result>
+	</action>
 </package>
 
 </struts>

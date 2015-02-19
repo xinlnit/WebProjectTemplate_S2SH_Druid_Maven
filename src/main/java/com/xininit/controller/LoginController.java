@@ -2,9 +2,13 @@
  */
 package com.xininit.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+
 import com.opensymphony.xwork2.ActionSupport;
+import com.xininit.pojo.Admin;
+import com.xininit.service.AdminServiceI;
 
 /**
  * @author xin
@@ -46,6 +50,11 @@ import com.opensymphony.xwork2.ActionSupport;
 public class LoginController extends ActionSupport{
 	
 	private static final long serialVersionUID = 1L;
+	@Autowired
+	private AdminServiceI adminService;
+	
+	private Admin admin;
+	
 	private String account;
 	private String password;
 	
@@ -56,7 +65,8 @@ public class LoginController extends ActionSupport{
 	 * @return
 	 */
 	public String login(){
-		if("admin".equals(account) && "admin".equals(password)){
+		admin = this.adminService.loginAdmin(account, password);
+		if(admin!=null){
 			return "admin";
 		}else{
 			return "login";

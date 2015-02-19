@@ -24,6 +24,9 @@ public interface AdminServiceI {
 	 */
 	public String addNewAdmin(String name,String account,String password);
 	
+	public String addNewAdmin(Admin admin);
+	
+	
 	/**
 	 * 显示所有的管理员
 	 * @author xin
@@ -31,4 +34,14 @@ public interface AdminServiceI {
 	 * @return
 	 */
 	public List<Admin> showAllAdmin();
+	
+	/**
+	 * 管理员登陆
+	 * @param account
+	 * @param password
+	 * @return
+	 * @author xin
+	 * @version 1.0(xin) 2015年2月19日 下午10:09:24
+	 */
+	public Admin loginAdmin(String account,String password);
 }

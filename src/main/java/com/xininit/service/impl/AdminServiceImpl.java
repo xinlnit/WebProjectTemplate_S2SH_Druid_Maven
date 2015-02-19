@@ -23,18 +23,27 @@ public class AdminServiceImpl implements AdminServiceI {
 	@Override
 	public String addNewAdmin(String name, String account, String password) {
 		Admin admin = new Admin(null,name,account,password);
-		String id = (String) this.adminDAO.save(admin);
-		if(id!=null){
-			return "添加成功";
-		}else{
-			return "添加失败";
+		return this.addNewAdmin(admin);
+	}
+
+	@Override
+	public String addNewAdmin(Admin admin) {
+		if(admin!=null && admin.getAccount()!=null && admin.getName()!=null && admin.getPassword()!=null){
+			String id = (String) this.adminDAO.save(admin);
+			return id;
+		}else {
+			return null;
 		}
 	}
 
 	@Override
 	public List<Admin> showAllAdmin() {
-		String hql = " from Admin ";
-		return this.adminDAO.findByHQL(hql);
+		return this.adminDAO.showAll();
+	}
+
+	@Override
+	public Admin loginAdmin(String account, String password) {
+		return this.adminDAO.getByAccountAndPwd(account, password);
 	}
 	
 	
