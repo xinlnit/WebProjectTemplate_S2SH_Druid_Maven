@@ -64,13 +64,16 @@ public class LoginController extends ActionSupport{
 	 * @version 1.0(xin) 2015年2月18日 上午10:58:42
 	 * @return
 	 */
-	public String login(){
+	public String login(){	
+		//com.opensymphony.xwork2.DefaultActionInvocation
+		admin = null;
+		admin.getAccount().toString();
 		admin = this.adminService.loginAdmin(account, password);
 		if(admin!=null){
 			return "admin";
 		}else{
 			return "login";
-		}
+		}		
 	}
 
 	public String getAccount() {

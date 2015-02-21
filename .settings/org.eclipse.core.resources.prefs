@@ -3,6 +3,7 @@ encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/config.properties=UTF-8
 encoding//src/main/resources/hibernate.properties=UTF-8
+encoding//src/main/resources/log4j.properties=UTF-8
 encoding//src/main/resources/struts.properties=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8

@@ -29,7 +29,7 @@ public class AdminDAOImpl extends EntityBaseDAOImpl<Admin, String> implements Ad
 
 	@Override
 	public Admin getByAccountAndPwd(String account, String pwd) {
-		String hql = " from Admin a where a.account = ? and a.password = ? ";
+		String hql = " from Admin a where a.account = ? and a.pwd = ? ";
 		return this.getByHQL(hql,account,pwd);
 	}
 

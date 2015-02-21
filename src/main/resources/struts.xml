@@ -4,16 +4,24 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
- <package name="struts2" namespace="/" extends="struts-default">
-	<action name="login" class="loginController" method="login">
-		<result name="login">/login.jsp</result>
-		<result name="admin">/adminIndex.jsp</result>
-	</action>
+	<package name="struts2" namespace="/" extends="struts-default">
 	
-	<action name="*Register" class="registerController" method="{1}Register">
-		<result name="success">/{1}Index.jsp</result>
-		<result name="register">/{1}Register.jsp</result>
-	</action>
-</package>
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+		<!-- 全局异常处理 -->
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.NullPointerException"></exception-mapping>
+		</global-exception-mappings>
+		<action name="login" class="loginController" method="login">
+			<result name="login">/login.jsp</result>
+			<result name="admin">/adminIndex.jsp</result>
+		</action>
+
+		<action name="*Register" class="registerController" method="{1}Register">
+			<result name="success">/{1}Index.jsp</result>
+			<result name="register">/{1}Register.jsp</result>
+		</action>
+	</package>
 
 </struts>

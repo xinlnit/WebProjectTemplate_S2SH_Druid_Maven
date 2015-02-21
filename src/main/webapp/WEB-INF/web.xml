@@ -12,13 +12,23 @@
 	<filter>
 		<filter-name>struts</filter-name>
 		<filter-class>
+			<!-- 
+				org.apache.struts2.dispatcher.FilterDispatcher是早期的struts2过滤器，2.1.3StrutsPrepareAndExecuteFilter开始替换FilterDispatcher
+			--> 
 			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
 		</filter-class>
+		<init-param>
+			<param-name>actionPackages</param-name>
+			<param-value>com.xininit.controller</param-value>
+		</init-param>
+		
 	</filter>
 	<filter-mapping>
 		<filter-name>struts</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	
 	
 	<!-- 配置spring -->
 	<!-- 指定spring的配置文件，默认从web根目录寻找配置文件，我们可以通过spring提供的classpath:前缀指定从类路径下寻找 -->
