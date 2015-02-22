@@ -2,11 +2,14 @@
  */
 package com.xininit.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.xininit.aop.annotation.StrutsResult;
 import com.xininit.pojo.Admin;
 import com.xininit.service.AdminServiceI;
 
@@ -58,12 +61,15 @@ public class LoginController extends ActionSupport{
 	private String account;
 	private String password;
 	
+	private Date myDate;//用于英文环境下返回2015-01-01的异常测试(未解决)
+	
 	/**
 	 * 登陆验证
 	 * @author xin
 	 * @version 1.0(xin) 2015年2月18日 上午10:58:42
 	 * @return
 	 */
+	@StrutsResult(error="adminLoginError")
 	public String login(){	
 		//com.opensymphony.xwork2.DefaultActionInvocation
 		admin = null;
@@ -90,6 +96,14 @@ public class LoginController extends ActionSupport{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Date getMyDate() {
+		return myDate;
+	}
+
+	public void setMyDate(Date myDate) {
+		this.myDate = myDate;
 	}
 	
 	

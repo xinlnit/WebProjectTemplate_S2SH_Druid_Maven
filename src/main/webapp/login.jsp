@@ -36,6 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td align="right">密码：</td>
 				<td><input type="text" value="admin" name="password">(password)</td>
 			</tr>
+			<tr>
+				<td align="right">时间：</td>
+				<td><input type="text" value="2015-01-02" name="myDate">(myDate)</td>
+			</tr>
 		</table>
 		<input type="submit" value="提交">
 	    </center>
