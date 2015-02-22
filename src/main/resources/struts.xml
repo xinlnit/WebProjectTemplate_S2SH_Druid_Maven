@@ -4,18 +4,31 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+	<constant name="struts.objectFactory" value="spring"></constant>
 	<package name="struts2" namespace="/" extends="struts-default">
-	
+		<interceptors>
+			<interceptor-stack name="mystack">
+				<interceptor-ref name="defaultStack" /><!-- 默认拦截stack -->
+				<!-- 覆盖defultsStack中的exception设置,启用它的日志功能 -->
+				<interceptor-ref name="exception">
+					<param name="logEnabled">true</param>
+					<param name="logLevel">warn</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 修改默认拦截器的stack，原来是defaultStack -->
+		<default-interceptor-ref name="mystack" />
 		<global-results>
 			<result name="error">/error.jsp</result>
 		</global-results>
 		<!-- 全局异常处理 -->
 		<global-exception-mappings>
-			<exception-mapping result="error" exception="java.lang.NullPointerException"></exception-mapping>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
 		</global-exception-mappings>
+		
 		<action name="login" class="loginController" method="login">
-			<result name="login">/login.jsp</result>
 			<result name="admin">/adminIndex.jsp</result>
+			<result name="login">/login.jsp</result>
 		</action>
 
 		<action name="*Register" class="registerController" method="{1}Register">
