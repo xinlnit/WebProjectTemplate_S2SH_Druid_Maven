@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.xininit.aop.annotation.StrutsResult;
 import com.xininit.pojo.Admin;
 import com.xininit.service.AdminServiceI;
 
@@ -69,7 +68,6 @@ public class LoginController extends ActionSupport{
 	 * @version 1.0(xin) 2015年2月18日 上午10:58:42
 	 * @return
 	 */
-	@StrutsResult(error="adminLoginError")
 	public String login(){	
 		//com.opensymphony.xwork2.DefaultActionInvocation
 		admin = null;
