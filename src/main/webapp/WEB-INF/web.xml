@@ -8,6 +8,40 @@
 	<!-- web应用描述:给出于此相关的说明性文本 -->
 	<display-name>Archetype Created Web Application</display-name>
 	
+	<!-- druid配置sql监控 StatViewServlet是一个标准的javax.servlet.http.HttpServlet，需要配置在web.xml中 
+		根据配置中的url-pattern来访问内置监控页面，例如下面，内置监控页面的首页是/druid/index.html -->
+	<!-- StatViewSerlvet -->
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- WebStatFilter用于采集web-jdbc关联监控的数据 -->
+	<filter>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<!-- exlusions配置，经常需要排除一些不必要的url,例如.js, -->
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>*.html,*.js,*.css,*.gif,*.jpg,*.png,*.ico,/druid/*</param-value>
+		</init-param>
+		<!-- 缺省是1000个，可以按需配置 -->
+		<init-param>
+			<param-name>sessionStatMaxCount</param-name>
+			<param-value>1000</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	
 	<!-- 配置struts2 -->
 	<filter>
 		<filter-name>struts</filter-name>

@@ -35,6 +35,11 @@
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
+		<!--
+			属性类型是字符串,通过别名的方式配置扩展插件,常用的插件有: 监控统计用的filter:stat 日志用的filter:log4j
+			防御sql注意的filter:wall
+		-->
+		<property name="filters" value="stat,log4j"></property>
 	</bean>
 
 	<!-- 加入sessionFactory -->
@@ -97,6 +102,23 @@
 				expression="execution(public * com.xininit.controller..*Controller.*(..))" />
 			<aop:around method="actionAround" pointcut-ref="gloabExceptionHandlerPointcut" />
 		</aop:aspect>
+	</aop:config>
+	
+	<!-- 
+		Druid和Spring关联监控配置，按方法名正则匹配拦截
+	 -->
+	 <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor"></bean>
+	 <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+	 	<property name="patterns">
+	 		<list>
+	 			<value>com.xininit.dao.*</value>
+	 			<value>com.xininit.service.*</value>	 			
+	 		</list>
+	 	</property>
+	 </bean>
+	 <!-- Druid和spring关联配置事务通知 -->
+	<aop:config proxy-target-class="true">
+		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
 	</aop:config>
 
 </beans>
