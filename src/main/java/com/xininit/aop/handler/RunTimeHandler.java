@@ -26,7 +26,7 @@ public class RunTimeHandler {
 	void timer() {  
 	}  
 
-	@Around("timer()")  
+	@Around(value="timer()")  
 	public Object time(ProceedingJoinPoint joinPoint) throws Throwable {  
 
 		String clazz = joinPoint.getTarget().getClass().getSimpleName();  
