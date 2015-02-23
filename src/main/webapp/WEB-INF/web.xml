@@ -34,6 +34,17 @@
 			<param-name>profileEnable</param-name>
 			<param-value>true</param-value>
 		</init-param>
+		<!-- StatViewSerlvet展示出来的监控信息比较敏感，是系统运行的内部情况 可以通过配置allow和deny来做访问控制,判断规则： 
+			deny优先于allow,如果在deny列表中，就算是allow列表中也会被拒绝，如果allow没有配置 或者为空，则运行所有访问(由于匹配规则不支持IPV6，配置了allow或者deny之后，会导致IPV6无法访问监控界面。) -->
+		<init-param>
+			<param-name>allow</param-name>
+			<!-- 注意：1)配置了之后不能使用localhost访问，但可以用127.0.0.1 2)128.242.127.1/24 24表示，前面24位是子网掩码，比对的时候，前面24位相同就匹配。 -->
+			<param-value>127.0.0.1,192.168.1.50</param-value>
+		</init-param>
+		<init-param>
+			<param-name>deny</param-name>
+			<param-value>192.168.1.55</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DruidStatView</servlet-name>
