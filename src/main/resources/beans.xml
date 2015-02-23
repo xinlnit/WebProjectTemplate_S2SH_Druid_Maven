@@ -51,6 +51,76 @@
 		</property>
 		<!-- 合并多个DruidDataSource的监控数据  -->
 		<property name="useGlobalDataSourceStat" value="true"></property>
+		<!--
+			初始化时建立物理连接的个数。初始化发送在显示调用init方法或第一次getConnection时 缺省值:0
+		-->
+		<property name="initialSize" value="1" />
+		<!-- 
+			最大连接池数量
+			缺省值：8
+		 -->
+		<property name="maxActive" value="20" />
+		<!-- 最小连接池数量 -->
+		<property name="minIdle" value="1" />
+		<!--
+			获取连接最大等待时间，单位毫秒。配置了maxWait后之后,缺省启用公平锁，并发效率会有所下降，
+			如果需要可以通过配置useUnfairLock属性为true使用非公平锁
+		-->
+		<property name="maxWait" value="60000" />
+
+		<!--
+			是否换成preparedStatement,也就是PSCache。 PSCache对支持游标的数据库性能提升巨大，比如说oracle
+			在mysql5.5以下的版本中没有PSCache功能，建议关闭掉，5.5及以上版本有PSCache，建议开启 缺省值：false
+		-->
+		<property name="poolPreparedStatements" value="false" />
+		<!--
+			要启用PSCache，必须配置大于0,poolPreparedStatements自动触发改为true.
+			在Druid中,不会存在Oracle下PSCache占用内存过多的问题,可以把这个数值配置大一些,例如100 缺省值：-1
+		-->
+		<property name="maxOpenPreparedStatements" value="-1" />
+		<!--
+			用来检测连接是否有效的sql,要求一个查询语句.
+			如果ValidationQuery为null,testOnBorrow、testOnReturn、testWhileldle都不会起作用
+		-->
+		<property name="validationQuery" value="SELECT 'x'" />
+		<!--
+			申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能 缺省值：true
+		-->
+		<property name="testOnBorrow" value="false" />
+		<!--
+			归还连接时执行validationQuery检查连接是否有效，做了这个配置会降低性能 缺省值：false
+		-->
+		<property name="testOnReturn" value="false" />
+		<!--
+			建议配置为true，不影响性能，并且保证安全性。
+			申请连接的时候检查，如果空闲时间大于timeBetweenEvictionRunsMillis，
+			执行validationQuery检查连接是否有效 缺省值:false
+		-->
+		<property name="testWhileIdle" value="true" />
+		<!--
+			有两个含义： 1)Destroy线程会检查连接的间隔时间
+			2)testWhiledle的判断依据，详细查看testWhileldle属性的说明
+		-->
+		<property name="timeBetweenEvictionRunsMillis" value="3000" />
+		<!--
+			Destory线程中如果检测到当前连接的最后活跃时间和当前时间的差值大于minEvictableIdleTimeMillis，则关闭连接
+		-->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<!-- 
+			对于建立时间超过removeAbandonedTimeout的连接强制关闭
+			下面设置：打开对于建立连接过长的连接强制关闭的功能
+		 -->
+		<property name="removeAbandoned" value="true"/>
+		<!-- 
+			指定连接建立多长时间就需要被强制关闭
+			下面设置：当连接建立时间超过了30分钟，强制将其关闭  
+		 -->
+		<property name="removeAbandonedTimeout" value="1800"/>
+		<!-- 
+			指定发生removeabandoned的时候，是否记录当前线程的堆栈信息到日志中
+		 	下面设置：将当前关闭动作记录到日志 
+		 -->
+		<property name="logAbandoned" value="true"/>
 	</bean>
 	
 	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
