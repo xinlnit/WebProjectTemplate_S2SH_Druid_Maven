@@ -70,8 +70,6 @@ public class LoginController extends ActionSupport{
 	 */
 	public String login(){	
 		//com.opensymphony.xwork2.DefaultActionInvocation
-		admin = null;
-		admin.getAccount().toString();
 		admin = this.adminService.loginAdmin(account, password);
 		if(admin!=null){
 			return "admin";
