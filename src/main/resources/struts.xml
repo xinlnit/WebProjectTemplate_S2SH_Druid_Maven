@@ -4,8 +4,11 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+
 	<constant name="struts.objectFactory" value="spring"></constant>
+	
 	<package name="struts2" namespace="/" extends="struts-default">
+	
 		<interceptors>
 			<interceptor-stack name="mystack">
 				<interceptor-ref name="defaultStack" /><!-- 默认拦截stack -->
@@ -16,13 +19,18 @@
 				</interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
+		
 		<!-- 修改默认拦截器的stack，原来是defaultStack -->
 		<default-interceptor-ref name="mystack" />
+		
 		<global-results>
 			<result name="error">/error.jsp</result>
 			<!-- 管理员专用登陆错误页面  -->
 			<result name="adminLoginError">/adminLoginError.jsp</result>
+			<!-- AOP管理异常跳转页面 -->
+			<result name="aspectError">/aspectError.jsp</result>
 		</global-results>
+		
 		<!-- 全局异常处理 -->
 		<global-exception-mappings>
 			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>

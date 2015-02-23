@@ -12,15 +12,15 @@
             http://www.springframework.org/schema/tx
             http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 
-
 	<!-- 注解配置 -->
 	<context:component-scan base-package="com.xininit" />
+	
 	<!-- 
 		打开aop的自动检索
 		proxy-target-class默认"false"使用JDK代理,更改为"ture"使用CGLib动态代理 
 	-->  
 	<aop:aspectj-autoproxy proxy-target-class="true"/> 
-
+	
 	<!-- 引入properties配置文件，默认在wenRoot目录下，加上classpath:表示在src目录下 -->
 	<bean id="propertyPlaceholderConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -96,5 +96,13 @@
 		<!-- 通知器 -->
 		<aop:advisor pointcut-ref="transactionPointcut"
 			advice-ref="transactionAdvice" />
+	</aop:config>
+	
+	<aop:config proxy-target-class="true">
+		<!-- 定义切面 -->
+		<aop:aspect id="gloabExceptionHandlerAspect" ref="gloabExceptionHandler">
+			<aop:pointcut id="gloabExceptionHandlerPointcut" expression="execution(public * com.xininit.controller..*Controller.*(..))" />
+			<aop:around method="actionAround" pointcut-ref="gloabExceptionHandlerPointcut"/>
+		</aop:aspect>
 	</aop:config>
 </beans>
