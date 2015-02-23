@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect//注解该类为切面类
 @Component//注入依赖
+//@EnableAspectJAutoProxy(proxyTargetClass=true)//使用CGLIB代理
 public class GloabExceptionHandler {
 	
 	public Object actionAround(ProceedingJoinPoint joinPoint) {    
@@ -25,7 +28,7 @@ public class GloabExceptionHandler {
         HttpServletRequest request = ServletActionContext.getRequest();
 		try {  
 			result = joinPoint.proceed();
-			joinPoint.proceed(joinPoint.getArgs());
+			//joinPoint.proceed(joinPoint.getArgs());
 		}catch(SQLException e) {
 			e.printStackTrace();
 			result = "aspectError";
