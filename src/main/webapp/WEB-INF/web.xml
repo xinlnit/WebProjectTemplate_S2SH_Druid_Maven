@@ -45,6 +45,15 @@
 			<param-name>deny</param-name>
 			<param-value>192.168.1.55</param-value>
 		</init-param>
+		<!-- 配置用户名和密码 -->
+		<init-param>
+			<param-name>loginUsername</param-name>
+			<param-value>druid</param-value>
+		</init-param>
+		<init-param>
+			<param-name>loginPassword</param-name>
+			<param-value>admin</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DruidStatView</servlet-name>
