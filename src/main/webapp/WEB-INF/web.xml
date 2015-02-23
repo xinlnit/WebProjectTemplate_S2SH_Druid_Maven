@@ -14,6 +14,26 @@
 	<servlet>
 		<servlet-name>DruidStatView</servlet-name>
 		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		<!-- Reset ALL功能会导致所有计数器清零，重新统计。  -->
+		<init-param>
+			<param-name>resetEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- 禁止or启动session统计功能 -->
+		<init-param>
+			<param-name>sessionStatEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<!-- 配置该属性可以使druid知道当前的session的用户是谁 -->
+		<init-param>
+			<param-name>principalSessionName</param-name>
+			<param-value>loginName</param-value>
+		</init-param>
+		<!-- 配置监控单个url调用的sql列表，在监控页面的WebURI选项查看 -->
+		<init-param>
+			<param-name>profileEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DruidStatView</servlet-name>
@@ -33,6 +53,10 @@
 		<init-param>
 			<param-name>sessionStatMaxCount</param-name>
 			<param-value>1000</param-value>
+		</init-param>
+		<init-param>
+			<param-name>principalSessionName</param-name>
+			<param-value>loginName</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>

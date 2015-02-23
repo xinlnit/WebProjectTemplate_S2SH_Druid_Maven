@@ -31,7 +31,12 @@
 
 	<!-- 设置dataSource,使用Druid连接池 -->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<!--
+			配置这个属性的意义在于，如果存在多个数据源，监控的时候可以通过名字区分开来
+			如果没有配置，将会生成一个名字，格式："DateSource-+System.identityHashCode(this)"
+		-->
+		<property name="name" value="dataSource_myTmpDB"></property>
+		<property name="driverClassName" value="${driverClassName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
 		<property name="password" value="${password}" />
@@ -40,6 +45,25 @@
 			防御sql注意的filter:wall
 		-->
 		<property name="filters" value="stat,log4j"></property>
+		<!-- filters和proxyFilters属性是组合关系的，不是替换的，在这个配置中，dataSource有了两个Filter：StatFilter和Log4jFilter -->
+		<property name="proxyFilters">
+			<list><ref bean="stat-filter"/></list>
+		</property>
+		<!-- 合并多个DruidDataSource的监控数据  -->
+		<property name="useGlobalDataSourceStat" value="true"></property>
+	</bean>
+	
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<!-- 可以将 :select * from t where id=1
+					select * from t where id=2...
+			  等相同类型的sql合并为一条sql -->
+		<property name="mergeSql" value="true"/>
+		<!-- 
+			配置sql慢查询标识，执行时间超过slowSqlMillis就是慢
+			缺省值:3000，单位毫秒
+		 -->
+		<property name="slowSqlMillis" value="5000"/>
+		<property name="logSlowSql" value="true"/>
 	</bean>
 
 	<!-- 加入sessionFactory -->

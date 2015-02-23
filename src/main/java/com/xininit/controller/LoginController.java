@@ -4,6 +4,9 @@ package com.xininit.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -57,6 +60,8 @@ public class LoginController extends ActionSupport{
 	
 	private Admin admin;
 	
+	private HttpServletRequest request = ServletActionContext.getRequest();
+		
 	private String account;
 	private String password;
 	
@@ -72,6 +77,8 @@ public class LoginController extends ActionSupport{
 		//com.opensymphony.xwork2.DefaultActionInvocation
 		admin = this.adminService.loginAdmin(account, password);
 		if(admin!=null){
+			request.getSession().setAttribute("admin", admin);
+			request.getSession().setAttribute("loginName", admin.getName());
 			return "admin";
 		}else{
 			return "login";
@@ -101,6 +108,5 @@ public class LoginController extends ActionSupport{
 	public void setMyDate(Date myDate) {
 		this.myDate = myDate;
 	}
-	
 	
 }
