@@ -86,6 +86,26 @@
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
 	
+		<!-- 配置openSessionInView解决 jsp上想用jstl调用没有加载的数据的问题(该方法使用与web项目，不适用于main调用bean的application项目，不过通过研究OpenSessionInView的原理，可以了解到该方法这个方法主要是把hibernate session和一次完整的请求过程对应的线程相绑定的实现Open Session in View模式，那么我们只要自己写一个类似的方法[参考OpenSessionInApplicationUtil.java]，在application项目每次执行相关数据操作的时候调用即可，是)
+	
+	Spring为我们解决hibernate的Session的关闭与开启问题
+	Hibernate允许对关联对象、属性进行延迟加载，但必须保证延迟加载的操作在同一个Hibernate Session范围之内进行。
+	
+	如果Service层返回一个启用了延迟加载功能的领域对象给Web层，当Web层访问到那些需要延迟加载的数据时，
+	由于加载领域对象的hibernate session 已经关闭，导致加载数据的访问异常：org.hibernate.LazyInitializationException: could not initialize proxy - no Session
+	
+	spring为我们提供的OpenSessionInViewFilter过滤器使我们能轻松的解决这个问题，它将hibernate session和一次完整的请求过程对应的线程相绑定，它允许在事务提交之后延迟加载显示所需要的对象，实现Open Session in View模式
+
+	-->
+	<filter>
+		<filter-name>SpringOpenSessionInView</filter-name>
+		<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>SpringOpenSessionInView</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	
 	<!-- 配置struts2 -->
 	<filter>
 		<filter-name>struts</filter-name>
@@ -105,8 +125,6 @@
 		<filter-name>struts</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	
 	
 	<!-- 配置spring -->
 	<!-- 指定spring的配置文件，默认从web根目录寻找配置文件，我们可以通过spring提供的classpath:前缀指定从类路径下寻找 -->

@@ -26,12 +26,5 @@ public class AdminDAOImpl extends EntityBaseDAOImpl<Admin, String> implements Ad
 		String hql = " from Admin ";
 		return this.findByHQL(hql);
 	}
-
-	@Override
-	public Admin getByAccountAndPwd(String account, String pwd) {
-		String hql = " from Admin a where a.account = ? and a.password = ? ";
-		return this.getByHQL(hql,account,pwd);
-	}
-
 	
 }

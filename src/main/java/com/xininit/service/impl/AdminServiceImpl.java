@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xininit.dao.AdminDAOI;
+import com.xininit.pojo.AccountManage;
 import com.xininit.pojo.Admin;
 import com.xininit.service.AdminServiceI;
 
@@ -22,13 +23,14 @@ public class AdminServiceImpl implements AdminServiceI {
 
 	@Override
 	public String addNewAdmin(String name, String account, String password) {
-		Admin admin = new Admin(null,name,account,password);
+		AccountManage accountManage = new AccountManage(null,account,password);
+		Admin admin = new Admin(null,name,accountManage);
 		return this.addNewAdmin(admin);
 	}
 
 	@Override
 	public String addNewAdmin(Admin admin) {
-		if(admin!=null && admin.getAccount()!=null && admin.getName()!=null && admin.getPassword()!=null){
+		if(admin!=null && admin.getAccountManage()!=null && admin.getAccountManage().getAccount()!=null && admin.getAccountManage().getPassword()!=null && admin.getName()!=null){
 			String id = (String) this.adminDAO.save(admin);
 			return id;
 		}else {
@@ -40,11 +42,5 @@ public class AdminServiceImpl implements AdminServiceI {
 	public List<Admin> showAllAdmin() {
 		return this.adminDAO.showAll();
 	}
-
-	@Override
-	public Admin loginAdmin(String account, String password) {
-		return this.adminDAO.getByAccountAndPwd(account, password);
-	}
-	
 	
 }

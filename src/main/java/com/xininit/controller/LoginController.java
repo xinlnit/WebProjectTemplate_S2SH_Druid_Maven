@@ -3,6 +3,7 @@
 package com.xininit.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,8 +13,12 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.xininit.pojo.AccountManage;
 import com.xininit.pojo.Admin;
+import com.xininit.pojo.Student;
+import com.xininit.service.AccountManageServiceI;
 import com.xininit.service.AdminServiceI;
+import com.xininit.service.StudentServiceI;
 
 /**
  * @author xin
@@ -22,7 +27,7 @@ import com.xininit.service.AdminServiceI;
 /*
  * @Controller:控制器（注入服务）用于标注控制层组件（如struts中的action）,默认首字母小写
  */
-@Controller
+@Controller("loginController")
 /*
   @RequestMapping("/user.do")//访问名，因为打算使用struts2配置，所以不使用 
   RequestMapping是一种通过匹配URL路径来访问相应页面的，分为类级别的和方法级别的
@@ -55,10 +60,17 @@ import com.xininit.service.AdminServiceI;
 public class LoginController extends ActionSupport{
 	
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	private AccountManageServiceI accountManageService;
 	@Autowired
 	private AdminServiceI adminService;
+	@Autowired
+	private StudentServiceI studentService;
 	
 	private Admin admin;
+	private Student student;
+	private AccountManage accountManage;
 	
 	private HttpServletRequest request = ServletActionContext.getRequest();
 		
@@ -68,23 +80,45 @@ public class LoginController extends ActionSupport{
 	private Date myDate;//用于英文环境下返回2015-01-01的异常测试(未解决)
 	
 	/**
-	 * 登陆验证
+	 * 管理员登陆验证
 	 * @author xin
 	 * @version 1.0(xin) 2015年2月18日 上午10:58:42
 	 * @return
 	 */
-	public String login(){	
-		//com.opensymphony.xwork2.DefaultActionInvocation
-		admin = this.adminService.loginAdmin(account, password);
+	public String adminLogin(){	
+		this.accountManage = this.accountManageService.login(account, password);
+		this.admin = this.accountManage.getAdmin();
+	    List<Admin> list = adminService.showAllAdmin();
+	    admin = list.get(0);
+	    System.out.println(admin.getName()+"\n"+admin.getAccountManage().getAccount()+admin.getAccountManage().getPassword());
 		if(admin!=null){
-			request.getSession().setAttribute("admin", admin);
-			request.getSession().setAttribute("loginName", admin.getName());
+			request.getSession().setAttribute("admin", this.admin);
+			request.getSession().setAttribute("loginName", this.admin.getName());
 			return "admin";
 		}else{
 			return "login";
 		}		
 	}
 
+	/**
+	 * 学生登陆验证
+	 * @return
+	 * @author xin
+	 * @version 1.0(xin) 2015年2月24日 上午12:28:29
+	 */
+	public String studentLogin(){
+		this.accountManage = this.accountManageService.login(account, password);
+		//System.out.println(accountManage.getAccount()+accountManage.getPassword()+accountManage.getStudent().getName());
+		this.student = this.accountManage.getStudent();
+		if(student!=null){
+			request.getSession().setAttribute("student", student);
+			request.getSession().setAttribute("loginName", admin.getName());
+			return "student";
+		}else{
+			return "login";
+		}	
+	}	
+	
 	public String getAccount() {
 		return account;
 	}
@@ -107,6 +141,30 @@ public class LoginController extends ActionSupport{
 
 	public void setMyDate(Date myDate) {
 		this.myDate = myDate;
+	}
+
+	public Admin getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public void setStudent(Student student) {
+		this.student = student;
+	}
+
+	public AccountManage getAccountManage() {
+		return accountManage;
+	}
+
+	public void setAccountManage(AccountManage accountManage) {
+		this.accountManage = accountManage;
 	}
 	
 }

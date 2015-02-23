@@ -23,10 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-   <form method="post" id="myForm" action="login.action">
+   <form method="post" id="myForm" action="<%=basePath %>adminLogin.action">
    		
 	    <center>
-	    <table><tr><td bgcolor=#CCCCCC>登录(login.action)</td></tr></table>
+	    <table><tr><td bgcolor=#CCCCCC>管理员登录(adminLogin.action)</td></tr></table>
 		<table>
 			<tr>
 				<td>账号/手机：</td>

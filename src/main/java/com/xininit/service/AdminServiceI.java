@@ -23,7 +23,13 @@ public interface AdminServiceI {
 	 * @return
 	 */
 	public String addNewAdmin(String name,String account,String password);
-	
+	/**
+	 * 添加一个新的管理员
+	 * @param admin
+	 * @return
+	 * @author xin
+	 * @version 1.0(xin) 2015年2月24日 上午1:13:59
+	 */
 	public String addNewAdmin(Admin admin);
 	
 	
@@ -35,13 +41,5 @@ public interface AdminServiceI {
 	 */
 	public List<Admin> showAllAdmin();
 	
-	/**
-	 * 管理员登陆
-	 * @param account
-	 * @param password
-	 * @return
-	 * @author xin
-	 * @version 1.0(xin) 2015年2月19日 下午10:09:24
-	 */
-	public Admin loginAdmin(String account,String password);
+	
 }

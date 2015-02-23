@@ -1,13 +1,15 @@
-/**
- */
 package com.xininit.pojo;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,18 +33,19 @@ public class Admin implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
-	private String account;
-	private String password;
+	private AccountManage accountManage;
 	
-	public Admin(){
-		
-	}
+	public Admin(){}
 	
-	public Admin(String id,String name,String account,String password){
+	public Admin(String id,String name,AccountManage accountManage){
 		this.id = id;
 		this.name = name;
-		this.account = account;
-		this.password = password;
+		this.accountManage = accountManage;
+	}
+	
+	public Admin(String id,String name){
+		this.id = id;
+		this.name = name;
 	}
 	
 
@@ -106,19 +109,9 @@ public class Admin implements Serializable{
 		return id;
 	}
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", length = 100, nullable = false)
 	public String getName() {
 		return name;
-	}
-
-	@Column(name = "account", unique = true, nullable = false)
-	public String getAccount() {
-		return account;
-	}
-
-	@Column(name = "password", nullable = false)
-	public String getPassword() {
-		return password;
 	}
 
 	public void setId(String id) {
@@ -129,12 +122,15 @@ public class Admin implements Serializable{
 		this.name = name;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_manage_id")
+	public AccountManage getAccountManage() {
+		return accountManage;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setAccountManage(AccountManage accountManage) {
+		this.accountManage = accountManage;
 	}
+	
 	
 }

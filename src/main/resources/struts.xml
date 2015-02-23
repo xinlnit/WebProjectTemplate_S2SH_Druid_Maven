@@ -25,8 +25,6 @@
 		
 		<global-results>
 			<result name="error">/error.jsp</result>
-			<!-- 管理员专用登陆错误页面  -->
-			<result name="adminLoginError">/adminLoginError.jsp</result>
 			<!-- AOP管理异常跳转页面 -->
 			<result name="aspectError">/aspectError.jsp</result>
 		</global-results>
@@ -36,14 +34,14 @@
 			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
 		</global-exception-mappings>
 		
-		<action name="login" class="loginController" method="login">
-			<result name="admin">/adminIndex.jsp</result>
-			<result name="login">/login.jsp</result>
+		<action name="*Login" class="loginController" method="{1}Login">
+			<result name="{1}">/index/{1}Index.jsp</result>
+			<result name="login">/login/{1}Login.jsp</result>
 		</action>
 
 		<action name="*Register" class="registerController" method="{1}Register">
-			<result name="success">/{1}Index.jsp</result>
-			<result name="register">/{1}Register.jsp</result>
+			<result name="success">/index/{1}Index.jsp</result>
+			<result name="register">/register/{1}Register.jsp</result>
 		</action>
 	</package>
 

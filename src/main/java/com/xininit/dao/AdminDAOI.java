@@ -18,13 +18,5 @@ public interface AdminDAOI extends EntityBaseDAOI<Admin, String> {
 	 * @version 1.0(xin) 2015年2月19日 下午10:04:26
 	 */
 	public List<Admin> showAll();
-	/**
-	 * 根据账号和密码查询管理员
-	 * @param account
-	 * @param pwd
-	 * @return 无返回null
-	 * @author xin
-	 * @version 1.0(xin) 2015年2月19日 下午10:04:37
-	 */
-	public Admin getByAccountAndPwd(String account,String pwd);
+	
 }
