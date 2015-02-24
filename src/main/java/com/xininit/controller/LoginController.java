@@ -111,7 +111,7 @@ public class LoginController extends ActionSupport{
 		this.student = this.accountManage.getStudent();
 		if(student!=null){
 			request.getSession().setAttribute("student", student);
-			request.getSession().setAttribute("loginName", admin.getName());
+			request.getSession().setAttribute("loginName", student.getName());
 			return "student";
 		}else{
 			return "login";

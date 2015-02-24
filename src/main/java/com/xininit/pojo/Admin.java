@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 /**
+ * 双外键一对一关联
  * @author xin
  * @version 1.0(xin) 2015年2月18日 上午10:37:17
  */
@@ -33,6 +34,9 @@ public class Admin implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id;
 	private String name;
+	/**
+	 * OneToOne:双外键关联
+	 */
 	private AccountManage accountManage;
 	
 	public Admin(){}
@@ -122,7 +126,7 @@ public class Admin implements Serializable{
 		this.name = name;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_manage_id")
 	public AccountManage getAccountManage() {
 		return accountManage;

@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,9 +33,10 @@ public class AccountManage implements Serializable{
 	private String account;
 	@Column(name = "password", length = 100, nullable = true)
 	private String password;
-	@OneToOne(mappedBy = "accountManage",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "admin_id")
 	private Admin admin;
-	@OneToOne(mappedBy = "accountManage",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "accountManage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Student student;
 	
 	public AccountManage(){}
@@ -85,13 +87,11 @@ public class AccountManage implements Serializable{
 	}
 
 	public Student getStudent() {
-		return student;
+		return this.student;
 	}
 
 	public void setStudent(Student student) {
 		this.student = student;
 	}
-	
-	
 	
 }
