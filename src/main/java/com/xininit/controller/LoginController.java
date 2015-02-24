@@ -88,9 +88,9 @@ public class LoginController extends ActionSupport{
 	public String adminLogin(){	
 		this.accountManage = this.accountManageService.login(account, password);
 		this.admin = this.accountManage.getAdmin();
-	    List<Admin> list = adminService.showAllAdmin();
-	    admin = list.get(0);
-	    System.out.println(admin.getName()+"\n"+admin.getAccountManage().getAccount()+admin.getAccountManage().getPassword());
+	    //List<Admin> list = adminService.showAllAdmin();
+	    //admin = list.get(0);
+	    //System.out.println(admin.getName()+"\n"+admin.getAccountManage().getAccount()+admin.getAccountManage().getPassword());
 		if(admin!=null){
 			request.getSession().setAttribute("admin", this.admin);
 			request.getSession().setAttribute("loginName", this.admin.getName());

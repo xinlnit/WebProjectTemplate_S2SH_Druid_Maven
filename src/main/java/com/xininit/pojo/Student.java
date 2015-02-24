@@ -50,7 +50,7 @@ public class Student implements Serializable{
 		this.name = name;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_manage_id")
 	public AccountManage getAccountManage() {
 		return accountManage;

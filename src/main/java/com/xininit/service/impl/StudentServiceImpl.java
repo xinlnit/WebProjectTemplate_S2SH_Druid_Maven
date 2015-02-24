@@ -25,8 +25,8 @@ public class StudentServiceImpl implements StudentServiceI{
 	@Override
 	public Integer addNewStudent(Student student) {
 		//student没有维持关系的权限，必须先创建AccountManage
-		//AccountManage accountManage = student.getAccountManage();
-		//this.accountManageDAO.save(accountManage);
+		AccountManage accountManage = student.getAccountManage();
+		this.accountManageDAO.save(accountManage);
 		
 		/*
 		保存方法一:update(accountManage)
@@ -35,7 +35,6 @@ public class StudentServiceImpl implements StudentServiceI{
 		return accountManage.getStudent().getId();
 		*/
 		//保存方法二:既然accountManage已经创建了，那直接save就可以了
-		//student.setAccountManage(accountManage);
 		return (Integer) this.studentDAO.save(student);
 	}
 
