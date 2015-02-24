@@ -31,6 +31,7 @@ public class AdminServiceImpl implements AdminServiceI {
 	@Override
 	public String addNewAdmin(Admin admin) {
 		if(admin!=null && admin.getAccountManage()!=null && admin.getAccountManage().getAccount()!=null && admin.getAccountManage().getPassword()!=null && admin.getName()!=null){
+			admin.getAccountManage().setAdmin(admin);
 			String id = (String) this.adminDAO.save(admin);
 			return id;
 		}else {
