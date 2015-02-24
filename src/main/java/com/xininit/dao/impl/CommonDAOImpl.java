@@ -55,7 +55,7 @@ public class CommonDAOImpl implements CommonDAOI {
 	}
 	
 	/**
-	 * 当个参数处理方法
+	 * 单个参数处理方法
 	 * @param q
 	 * @param num
 	 * @param param
@@ -70,7 +70,7 @@ public class CommonDAOImpl implements CommonDAOI {
 			Object[] objs =  (Object[]) param;
 			num = this.initQueryParameObjects(q, num, objs);
 		}else{
-			q.setParameter(num, param);
+			q.setParameter(String.valueOf(num), param);
 			num ++;
 		}
 

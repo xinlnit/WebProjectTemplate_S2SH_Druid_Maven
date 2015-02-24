@@ -20,7 +20,7 @@ public class AccountManageDAOImpl extends EntityBaseDAOImpl<AccountManage,String
 	
 	@Override
 	public AccountManage getByAccountAndPwd(String account, String password) {
-		String hql = " from AccountManage a where a.account = ? and a.password = ? ";
+		String hql = " from AccountManage a where a.account = ?0 and a.password = ?1 ";
 		return this.getByHQL(hql,account,password);
 	}
 }
