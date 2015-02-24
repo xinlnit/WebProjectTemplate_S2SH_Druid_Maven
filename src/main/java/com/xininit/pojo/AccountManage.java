@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -33,11 +32,9 @@ public class AccountManage implements Serializable{
 	private String account;
 	@Column(name = "password", length = 100, nullable = true)
 	private String password;
-	@Transient//不持久化该字段
-	@OneToOne(mappedBy = "account_manage_id",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "accountManage",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Admin admin;
-	@Transient//不持久化该字段
-	@OneToOne(mappedBy = "account_manage_id",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "accountManage",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private Student student;
 	
 	public AccountManage(){}
